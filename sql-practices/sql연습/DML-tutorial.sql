@@ -1,0 +1,17 @@
+-- Basic Query
+
+DROP TABLE PET;
+
+CREATE TABLE PET
+(
+		NAME		VARCHAR(20),
+        OWNER 		VARCHAR(20),
+        SEPECIES	VARCHAR(20),
+        GENDER		CHAR(1),
+        BIRTH		DATE,
+        DEATH		DATE
+);
+
+DESC PET;
+
+SELECT SYSDATE() FROM DUAL;
