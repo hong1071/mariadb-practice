@@ -20,6 +20,16 @@ select date_format(min(hire_date), '%Y년 %m월 %d일')
 from employees
 ;
 
+select emp_no, date_format(from_date, '%Y년 %m월 %d일') as 입사일,
+	datediff(date_format(replace(max(to_date), '9999-01-01', now()), '%Y-%m-%d'), 
+			date_format(min(from_date), '%Y-%m-%d')
+            ) as 근속일수
+from titles
+group by emp_no
+having 근속일수 = 13422
+order by 근속일수 desc
+;
+
 -- 문제4.
 -- 현재 이 회사의 평균 연봉은 얼마입니까?
 select avg(salary) as '평균 연봉'

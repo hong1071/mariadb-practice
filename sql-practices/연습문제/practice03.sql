@@ -14,7 +14,7 @@ order by salary desc
 select t1.emp_no, concat(t1.first_name, ' ', t1.last_name) as name, title
 from employees t1, titles t2
 where t1.emp_no = t2.emp_no
-	and to_date = '9999-01-01'
+	and t2.to_date = '9999-01-01'
 order by name asc
 ;
 
@@ -59,6 +59,7 @@ where t1.emp_no = t2.emp_no
 	and t2.dept_no = t3.dept_no
     and t1.emp_no = t4.emp_no
 	and t1.last_name like 'S%'
+    and t2.to_date = '9999-01-01'
     and t4.to_date = '9999-01-01'
 ;
 
@@ -68,10 +69,10 @@ select *
 from employees t1, salaries t2, titles t3
 where t1.emp_no = t2.emp_no
 	and t1.emp_no = t3.emp_no
-	and t2.to_date = '9999-01-01'
     and t2.salary >= 40000
-    and t3.to_date = '9999-01-01'
     and t3.title = 'Engineer'
+    and t3.to_date = '9999-01-01'
+    and t2.to_date = '9999-01-01'
 order by salary desc
 ;
 
@@ -81,9 +82,9 @@ select t3.title, t2.salary
 from employees t1, salaries t2, titles t3
 where t1.emp_no = t2.emp_no
 	and t1.emp_no = t3.emp_no
+    and t2.salary > 50000
 	and t2.to_date = '9999-01-01'
     and t3.to_date = '9999-01-01'
-    and t2.salary > 50000
 order by t2.salary desc
 ;
 
@@ -94,6 +95,7 @@ from departments t1, salaries t2, dept_emp t3
 where t1.dept_no = t3.dept_no
 	and t2.emp_no = t3.emp_no
 	and t2.to_date = '9999-01-01'
+    and t3.to_date = '9999-01-01'
 group by dept_name
 order by avg(salary) desc
 ;
@@ -105,6 +107,7 @@ from salaries t1, employees t2, titles t3
 where t1.emp_no = t2.emp_no
 	and t2.emp_no = t3.emp_no
 	and t1.to_date = '9999-01-01'
+    and t3.to_date = '9999-01-01'
 group by t3.title
 order by avgSal desc
 ;
