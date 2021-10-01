@@ -23,23 +23,17 @@
 -- 현재 근무하고 있는 직원 수는 몇 명입니까? (salaries 테이블을 사용합니다.) 
 -- to_date 사용
     select count(*)
-    from
-		(
-		select emp_no, sum(salary)
-		from salaries
-		group by emp_no
-		) t1
-	;
+    from salaries
+    where to_date = '9999-01-01'
+    ;
     
 -- 문제5.
 -- 부서는 총 몇 개가 있나요?
-	select * from dept_emp;
-    select distinct dept_no from dept_emp;
 	select count(*) from departments;
 
 -- 문제6.
 -- 현재 부서 매니저는 몇 명이나 있나요?(역임 매너저는 제외)
-	select * 
+	select count(*)
     from dept_manager
     where to_date = '9999-01-01'
     ;

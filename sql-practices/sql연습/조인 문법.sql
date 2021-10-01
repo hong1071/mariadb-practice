@@ -36,6 +36,29 @@ where t1.emp_no = t2.emp_no				-- 조인 조건
 		on t1.emp_no = t2.emp_no
 	where t2.to_date = '9999-01-01'		-- row 선택 조건
 	;
+    
+-- outer join
+	/*
+	insert into dept values(null, '총무');
+	insert into dept values(null, '영업');
+	insert into dept values(null, '개발');
+	insert into dept values(null, '기획');
+	*/
+	select * from dept;
+	/*
+	insert into emp values(null, '둘리', 1);
+	insert into emp values(null, '마이콜', 2);
+	insert into emp values(null, '또치', 3);
+	insert into emp values(null, '길동이', null);
+	*/
+	select * from emp;
 
+	select t1.name as '이름', ifnull(t2.name, '없음') as '부서'
+	from emp t1 left join dept t2 
+		on t1.dept_no = t2.no
+	;
 
-
+	select t1.name as '이름', t2.name as '부서'
+	from emp t1 right join dept t2 
+		on t1.dept_no = t2.no
+	;
