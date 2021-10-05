@@ -108,7 +108,7 @@ order by t2.salary desc;
 	;
 	
     -- sol2: subquery(in)
-    select t1.first_name, b.salary
+    select t1.first_name, t2.salary
     from employees t1, salaries t2
     where t1.emp_no = t2.emp_no
 		and t2.to_date = '9999-01-01'
