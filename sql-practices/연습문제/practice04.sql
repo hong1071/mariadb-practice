@@ -11,7 +11,8 @@ where to_date = '9999-01-01'
 ;
 
 -- 문제2. 
--- 현재, 각 부서별로 최고의 급여를 받는 사원의 사번, 이름, 부서, 연봉을 조회하세요. 단 조회결과는 연봉의 내림차순으로 정렬되어 나타나야 합니다. 
+-- 현재, 각 부서별로 최고의 급여를 받는 사원의 사번, 이름, 부서, 연봉을 조회하세요. 단 조회결과는 연봉의 내림차순으로 정렬되어 나타나야 합니다.
+-- 풀이 1
 select t1.emp_no, t1.first_name, t3.dept_name, max(t4.salary) as max_salary
 from employees t1, dept_emp t2, departments t3, salaries t4
 where t1.emp_no = t2.emp_no
@@ -23,6 +24,7 @@ group by t3.dept_name
 order by max_salary desc
 ;
 
+-- 풀이2
 select t1.emp_no, t1.first_name, t2.dept_name, t3.max_salary
 from employees t1, departments t2, (
 									select tt2.dept_no, tt1.emp_no, max(tt1.salary) as max_salary
