@@ -5,14 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import bookmall.vo.OrderVo;
+import bookmall.vo.Order_BookVo;
 
-public class OrderDao {
+
+public class Order_BookDao {
 	
-	public static boolean insert(OrderVo vo) {
+	public static boolean insert(Order_BookVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -22,14 +24,14 @@ public class OrderDao {
 			conn = getconnection();
 			
 			//3. SQL 구문을 준비한다.
-			String sql = "insert into `order` values (null, ?, ?, ?, ?)";		//? 자리에 바인딩을 한다.
+			String sql = "insert into order_book values(?, ?, ?, ?)";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(Binding)을 한다.
-			pstmt.setInt(1, vo.getPayment());
-			pstmt.setString(2, vo.getDestination());
-			pstmt.setInt(3, vo.getMemberNo());
-			pstmt.setInt(4, vo.getOrderNo());
+			pstmt.setInt(1, vo.getAmount());
+			pstmt.setInt(2, vo.getPrice());
+			pstmt.setInt(3, vo.getOrderNo());
+			pstmt.setInt(4, vo.getBookNo());
 			
 			//5. SQL 구문을 실행한다.
 			pstmt.executeUpdate();
@@ -55,8 +57,8 @@ public class OrderDao {
 		return result;
 	}
 	
-	public List<OrderVo> findAll(){
-		List<OrderVo> result = new ArrayList<>();
+	public List<Order_BookVo> findAll(){
+		List<Order_BookVo> result = new ArrayList<>();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -66,24 +68,24 @@ public class OrderDao {
 			conn = getconnection();
 			
 			//3. SQL 구문을 준비한다.
-			String sql = "select no, payment, destination, member_no, order_no from `order`";
+			String sql = "select amount, price, order_no, book_no from order_book";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. SQL 구문을 실행한다.
+			//4. 바인딩(Binding)을 한다.
+			
+			//5. SQL 구문을 실행한다.
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				int no = rs.getInt(1);
-				int payment = rs.getInt(2);
-				String destination= rs.getString(3);
-				int memberNo = rs.getInt(4);
-				int orderNo = rs.getInt(5);
+				int amount = rs.getInt(1);
+				int price = rs.getInt(2);
+				int orderNo = rs.getInt(3);
+				int bookBo = rs.getInt(4);
 				
-				OrderVo vo = new OrderVo();
-				vo.setNo(no);
-				vo.setPayment(payment);
-				vo.setDestination(destination);
-				vo.setMemberNo(memberNo);
+				Order_BookVo vo = new Order_BookVo();
+				vo.setAmount(amount);
+				vo.setPrice(price);
 				vo.setOrderNo(orderNo);
+				vo.setBookNo(bookBo);
 				
 				result.add(vo);
 			}
@@ -122,11 +124,11 @@ public class OrderDao {
 			conn = getconnection();
 			
 			//3. Statement를 생성한다.
-			String sql = "delete from `order` where no = ?";
+			String sql = "delete from order_book where order_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. binding
-			pstmt.setLong(1, no);
+			pstmt.setInt(1, no);
 			
 			//5. SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
@@ -153,6 +155,46 @@ public class OrderDao {
 		return result;
 	}
 	
+	public static Boolean update(Order_BookVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			conn = getconnection();
+			
+			//3. Statement를 생성한다.
+			stmt = conn.createStatement();
+			
+			//4. SQL 구문을 실행한다.
+			String sql = "update order_book " + 
+					"set amount = " + vo.getAmount()+ 
+					"	and price = " + vo.getPrice()+ 
+					"	and book_no = " + vo.getBookNo() + 
+					"where order_no = " + vo.getOrderNo();
+			int count = stmt.executeUpdate(sql);
+			result = count == 1;
+			
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			// clean up
+			try {
+				if(stmt != null) {
+					stmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 	
 	private static Connection getconnection() throws SQLException{
 		Connection conn  = null;
@@ -176,5 +218,5 @@ public class OrderDao {
 		
 		return conn;
 	}
-
+	
 }

@@ -116,7 +116,7 @@ public class AuthorDao {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			//2. SQL과 연결한다.
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?charset=utf8"; // 드라이버종류, ip주소:포트번호, 데이터베이스 이름
+			String url = "jdbc:mysql://10.0.2.2:3306/webdb?charset=utf8"; // 드라이버종류, ip주소:포트번호, 데이터베이스 이름
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
 			

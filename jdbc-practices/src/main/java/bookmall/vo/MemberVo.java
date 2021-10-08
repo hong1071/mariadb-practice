@@ -5,7 +5,7 @@ public class MemberVo {
 	private String name;
 	private String email;
 	private int password;
-	private int phoneNo;
+	private String phoneNo;
 	public int getNo() {
 		return no;
 	}
@@ -30,10 +30,10 @@ public class MemberVo {
 	public void setPassword(int password) {
 		this.password = password;
 	}
-	public int getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	

@@ -146,3 +146,4 @@ where t1.emp_no = t2.emp_no
 	and t4.salary > t5.salary
 order by t1.emp_no asc
 ;
+
