@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class Order_BookDao {
 			//4. 바인딩(Binding)을 한다.
 			pstmt.setInt(1, vo.getAmount());
 			pstmt.setInt(2, vo.getPrice());
-			pstmt.setInt(3, vo.getOrderNo());
-			pstmt.setInt(4, vo.getBookNo());
+			pstmt.setInt(3, vo.getBookNo());
+			pstmt.setInt(4, vo.getOrderNo());
 			
 			//5. SQL 구문을 실행한다.
 			pstmt.executeUpdate();
@@ -115,7 +114,7 @@ public class Order_BookDao {
 		return result;
 	}
 	
-	public static Boolean delete(int no) {
+	public static Boolean delete(int orderNo, int bookNo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -124,11 +123,12 @@ public class Order_BookDao {
 			conn = getconnection();
 			
 			//3. Statement를 생성한다.
-			String sql = "delete from order_book where order_no = ?";
+			String sql = "delete from order_book where order_no = ? and book_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. binding
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, bookNo);
 			
 			//5. SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
@@ -141,47 +141,6 @@ public class Order_BookDao {
 			try {
 				if(pstmt != null) {
 					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	
-	public static Boolean update(Order_BookVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		Statement stmt = null;
-		
-		try {
-			conn = getconnection();
-			
-			//3. Statement를 생성한다.
-			stmt = conn.createStatement();
-			
-			//4. SQL 구문을 실행한다.
-			String sql = "update order_book " + 
-					"set amount = " + vo.getAmount()+ 
-					"	and price = " + vo.getPrice()+ 
-					"	and book_no = " + vo.getBookNo() + 
-					"where order_no = " + vo.getOrderNo();
-			int count = stmt.executeUpdate(sql);
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("error: " + e);
-		} finally {
-			// clean up
-			try {
-				if(stmt != null) {
-					stmt.close();
 				}
 				
 				if(conn != null) {

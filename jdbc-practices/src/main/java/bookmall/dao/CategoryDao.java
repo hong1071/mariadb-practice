@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,26 +107,30 @@ public class CategoryDao {
 	public static Boolean update(CategoryVo vo) {
 		boolean result = false;
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		
 		try {
 			conn = getconnection();
-			
+
 			//3. Statement를 생성한다.
-			stmt = conn.createStatement();
+			String sql = "update category set name = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
 			
-			//4. SQL 구문을 실행한다.
-			String sql = "update category set name = " + vo.getName() + " where no = " + vo.getNo();
-			int count = stmt.executeUpdate(sql);
+			//4. 바인딩
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getNo());
+			
+			//5. SQL 구문을 실행한다.
+			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			System.out.println("error: " + e);
 		} finally {
 			// clean up
 			try {
-				if(stmt != null) {
-					stmt.close();
+				if(pstmt != null) {
+					pstmt.close();
 				}
 				
 				if(conn != null) {
@@ -138,7 +141,6 @@ public class CategoryDao {
 				e.printStackTrace();
 			}
 		}
-		
 		return result;
 	}
 	

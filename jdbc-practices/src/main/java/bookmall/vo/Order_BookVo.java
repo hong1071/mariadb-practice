@@ -30,4 +30,9 @@ public class Order_BookVo {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	@Override
+	public String toString() {
+		return "Order_BookVo [bookNo=" + bookNo + ", orderNo=" + orderNo + ", price=" + price + ", amount=" + amount
+				+ "]";
+	}
 }

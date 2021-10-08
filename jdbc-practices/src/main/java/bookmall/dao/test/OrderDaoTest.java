@@ -8,9 +8,9 @@ import bookmall.vo.OrderVo;
 public class OrderDaoTest {
 
 	public static void main(String[] args) {
-		findAllTest();
-		insertTest();
-		deleteTest();
+		//findAllTest();
+		//insertTest();
+		//deleteTest();
 
 	}
 	
@@ -22,21 +22,24 @@ public class OrderDaoTest {
 	}
 	
 	private static void insertTest() {
-		OrderVo vo = null;
 		OrderDao dao = new OrderDao();
 		
-		vo = new OrderVo();
+		OrderVo vo = new OrderVo();
 		vo.setPayment(30000);
 		vo.setDestination("부산시 수영구 민락동");
 		vo.setMemberNo(1);
 		vo.setOrderNo(1);
 		dao.insert(vo); 
 		
+		findAllTest();
+		
 	}
 	
 	private static void deleteTest() {
 		OrderDao dao = new OrderDao();
-		dao.delete(0);
+		dao.delete(1);
+		
+		findAllTest();
 	}
 
 }

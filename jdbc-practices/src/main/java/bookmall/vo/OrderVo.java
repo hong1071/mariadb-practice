@@ -36,4 +36,9 @@ public class OrderVo {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	@Override
+	public String toString() {
+		return "OrderVo [orderNo=" + orderNo + ", no=" + no + ", payment=" + payment + ", destination=" + destination
+				+ ", memberNo=" + memberNo + "]";
+	}
 }

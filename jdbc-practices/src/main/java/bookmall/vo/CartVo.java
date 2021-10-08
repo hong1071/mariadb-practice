@@ -23,6 +23,10 @@ public class CartVo {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	@Override
+	public String toString() {
+		return "CartVo [bookNo=" + bookNo + ", memberNo=" + memberNo + ", amount=" + amount + "]";
+	}
 	
 	
 }

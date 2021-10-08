@@ -8,10 +8,9 @@ import bookmall.vo.CartVo;
 public class CartDaoTest {
 
 	public static void main(String[] args) {
-		findAllTest();
-		insertTest();
-		deleteTest();
-		updateTest();
+		//findAllTest();
+		//insertTest();
+		//deleteTest();
 
 	}
 	
@@ -23,33 +22,37 @@ public class CartDaoTest {
 	}
 	
 	private static void insertTest() {
-		CartVo vo = null;
+
 		CartDao dao = new CartDao();
 		
-		vo = new CartVo();
-		vo.setBookNo(1);
-		vo.setMemberNo(2);
-		vo.setAmount(1);
-		dao.insert(vo); 
+		CartVo vo1 =  new CartVo();
+		vo1.setBookNo(1);
+		vo1.setMemberNo(1);
+		vo1.setAmount(1);
+		dao.insert(vo1); 
+		
+		CartVo vo2 =  new CartVo();
+		vo2.setBookNo(2);
+		vo2.setMemberNo(2);
+		vo2.setAmount(2);
+		dao.insert(vo2); 
+		
+		CartVo vo3 =  new CartVo();
+		vo3.setBookNo(1);
+		vo3.setMemberNo(2);
+		vo3.setAmount(3);
+		dao.insert(vo3); 
+		
+		findAllTest();
 		
 	}
 	
 	private static void deleteTest() {
+		// 회원번호로 삭제
 		CartDao dao = new CartDao();
 		dao.delete(1);
-	}
-	
-	private static void updateTest() {
-		CartVo vo = null;
-		CartDao dao = new CartDao();
 		
-		vo = new CartVo();
-		vo.setAmount(1);
-		vo.setBookNo(1);
-		vo.setMemberNo(1);
-		dao.update(vo);
-		
+		findAllTest();
 	}
-
 
 }

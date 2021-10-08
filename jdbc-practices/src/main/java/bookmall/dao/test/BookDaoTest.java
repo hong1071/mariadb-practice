@@ -9,9 +9,9 @@ import bookmall.vo.BookVo;
 public class BookDaoTest {
 
 	public static void main(String[] args) {
-		findAllTest();
-		insertTest();
-		deleteTest();
+		//findAllTest();
+		//insertTest();
+		//deleteTest();
 
 	}
 	
@@ -23,19 +23,34 @@ public class BookDaoTest {
 	}
 	
 	private static void insertTest() {
-		BookVo vo = null;
 		BookDao dao = new BookDao();
 		
-		vo = new BookVo();
-		vo.setTitle("스테파니메이어");
-		vo.setPrice(20000);
-		vo.setCategoryNo(1);
-		dao.insert(vo); 	
+		BookVo vo1 = new BookVo();
+		vo1.setTitle("칼의 노래");
+		vo1.setPrice(20000);
+		vo1.setCategoryNo(1);
+		dao.insert(vo1); 	
+		
+		BookVo vo2 = new BookVo();
+		vo2.setTitle("프랑스 문화사");
+		vo2.setPrice(34000);
+		vo2.setCategoryNo(2);
+		dao.insert(vo2); 
+		
+		BookVo vo3 = new BookVo();
+		vo3.setTitle("ncs 부산교통공사 모의고사 4회");
+		vo3.setPrice(13000);
+		vo3.setCategoryNo(3);
+		dao.insert(vo3); 
+		
+		findAllTest();
 	}
 	
 	private static void deleteTest() {
 		BookDao dao = new BookDao();
-		dao.delete(0);
+		dao.delete(1);
+		
+		findAllTest();
 	}
 
 }

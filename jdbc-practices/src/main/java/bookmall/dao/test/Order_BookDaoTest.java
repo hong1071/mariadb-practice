@@ -9,7 +9,7 @@ import bookmall.vo.Order_BookVo;
 public class Order_BookDaoTest {
 
 	public static void main(String[] args) {
-		findAllTest();
+		//findAllTest();
 		//insertTest();
 		//deleteTest();
 		//updateTest();
@@ -24,34 +24,34 @@ public class Order_BookDaoTest {
 	}
 	
 	private static void insertTest() {
-		Order_BookVo vo = null;
+
 		Order_BookDao dao = new Order_BookDao();
 		
-		vo = new Order_BookVo();
-		vo.setAmount(1);
-		vo.setPrice(30000);
-		vo.setOrderNo(1);
-		vo.setBookNo(1);
-		dao.insert(vo); 
+		Order_BookVo vo1 =  new Order_BookVo();
+		vo1.setAmount(1);
+		vo1.setPrice(30000);
+		vo1.setOrderNo(1);
+		vo1.setBookNo(1);
+		dao.insert(vo1); 
+		
+		Order_BookVo vo2 =  new Order_BookVo();
+		vo2.setAmount(1);
+		vo2.setPrice(20000);
+		vo2.setOrderNo(1);
+		vo2.setBookNo(2);
+		dao.insert(vo2); 
+		
+		findAllTest();
 		
 	}
 	
 	private static void deleteTest() {
+		// delete(주문번호, 책번호) : 두 변수를 동시에 입력해야 정확하게 삭제 가능
 		Order_BookDao dao = new Order_BookDao();
-		dao.delete(0);
-	}
-	
-	private static void updateTest() {
-		Order_BookVo vo = null;
-		Order_BookDao dao = new Order_BookDao();
+		dao.delete(1, 1);
+		dao.delete(2, 1);
 		
-		vo = new Order_BookVo();
-		vo.setAmount(1);
-		vo.setPrice(20000);
-		vo.setBookNo(1);
-		vo.setOrderNo(1);
-		dao.equals(vo);
-		
+		findAllTest();
 	}
 
 }

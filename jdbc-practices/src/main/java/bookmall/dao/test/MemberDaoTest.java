@@ -10,6 +10,7 @@ import bookmall.vo.MemberVo;
 public class MemberDaoTest {
 
 	public static void main(String[] args) {
+		
 		findAllTest();
 		//insertTest();
 		//deleteTest();
@@ -25,21 +26,30 @@ public class MemberDaoTest {
 	}
 	
 	private static void insertTest() {
-		MemberVo vo = null;
 		MemberDao dao = new MemberDao();
 		
-		vo = new MemberVo();
-		vo.setName("스테파니메이어");
-		vo.setEmail("hong1071@nate.com");
-		vo.setPassword(123456);
-		vo.setPhoneNo("01086521071");
-		dao.insert(vo); 
+		MemberVo vo1 = new MemberVo();
+		vo1.setName("홍길동");
+		vo1.setEmail("hong1071@nate.com");
+		vo1.setPassword("123456");
+		vo1.setPhoneNo("01086521071");
+		dao.insert(vo1); 
 		
+		MemberVo vo2 = new MemberVo();
+		vo2.setName("전우치");
+		vo2.setEmail("jeonWC@naver.com");
+		vo2.setPassword("123456");
+		vo2.setPhoneNo("01055674213");
+		dao.insert(vo2); 
+		
+		findAllTest();
 	}
 	
 	private static void deleteTest() {
 		MemberDao dao = new MemberDao();
-		dao.delete(0);
+		dao.delete(1);
+		
+		findAllTest();
 	}
 	
 	private static void updateTest() {
@@ -47,12 +57,11 @@ public class MemberDaoTest {
 		MemberDao dao = new MemberDao();
 		
 		vo = new MemberVo();
-		vo.setName("나쁜생각");
-		vo.setEmail("hong1072@nate.com");
-		vo.setPassword(345678);
-		vo.setPhoneNo("01086521072");
+		vo.setPhoneNo("01086521076");
+		vo.setNo(1);
 		dao.update(vo);
 		
+		findAllTest();
 	}
 
 }

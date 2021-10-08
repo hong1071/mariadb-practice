@@ -29,4 +29,8 @@ public class BookVo {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+	@Override
+	public String toString() {
+		return "BookVo [no=" + no + ", title=" + title + ", price=" + price + ", categoryNo=" + categoryNo + "]";
+	}
 }

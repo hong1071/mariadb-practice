@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class MemberDao {
 			//4. 바인딩(Binding)을 한다.
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
-			pstmt.setInt(3, vo.getPassword());
+			pstmt.setString(3, vo.getPassword());
 			pstmt.setString(4, vo.getPhoneNo());
 			
 			//5. SQL 구문을 실행한다.
@@ -77,7 +76,7 @@ public class MemberDao {
 				int no = rs.getInt(1);
 				String name = rs.getString(2);
 				String email = rs.getString(3);
-				int password = rs.getInt(4);
+				String password = rs.getString(4);
 				String phoneNo = rs.getString(5);
 				
 				MemberVo vo = new MemberVo();
@@ -158,30 +157,40 @@ public class MemberDao {
 	public static Boolean update(MemberVo vo) {
 		boolean result = false;
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		
 		try {
 			conn = getconnection();
-			
+
 			//3. Statement를 생성한다.
-			stmt = conn.createStatement();
-			
-			//4. SQL 구문을 실행한다.
 			String sql = "update member " + 
-						"set email = '" + vo.getEmail() + "'" + 
-						"	and password = " + vo.getPassword() + 
-						"    and phone_no = " + vo.getPhoneNo() + 
-						"where no = " + vo.getNo();
-			int count = stmt.executeUpdate(sql);
+					"set email = ifnull(?, email) " + 
+					"	, password = ifnull(?, password) " + 
+					"   , phone_no = ifnull(?, phone_no) " + 
+					"where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩
+			System.out.println(vo.getEmail());
+			System.out.println(vo.getPassword());
+			System.out.println(vo.getPhoneNo());
+			System.out.println(vo.getNo());
+			pstmt.setString(1, vo.getEmail());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getPhoneNo());
+			pstmt.setInt(4, vo.getNo());
+			
+			//5. SQL 구문을 실행한다.
+			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			System.out.println("error: " + e);
 		} finally {
 			// clean up
 			try {
-				if(stmt != null) {
-					stmt.close();
+				if(pstmt != null) {
+					pstmt.close();
 				}
 				
 				if(conn != null) {
@@ -192,7 +201,6 @@ public class MemberDao {
 				e.printStackTrace();
 			}
 		}
-		
 		return result;
 	}
 	

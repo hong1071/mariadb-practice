@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,46 +136,6 @@ public class CartDao {
 			try {
 				if(pstmt != null) {
 					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	
-	public static Boolean update(CartVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		Statement stmt = null;
-		
-		try {
-			conn = getconnection();
-			
-			//3. Statement를 생성한다.
-			stmt = conn.createStatement();
-			
-			//4. SQL 구문을 실행한다.
-			String sql = "update cart" + 
-						" set amount = "+ vo.getAmount() + 	
-						"	and book_no = " + vo.getBookNo() + 
-						" where member_no = " + vo.getMemberNo();
-			int count = stmt.executeUpdate(sql);
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("error: " + e);
-		} finally {
-			// clean up
-			try {
-				if(stmt != null) {
-					stmt.close();
 				}
 				
 				if(conn != null) {
