@@ -21,14 +21,14 @@ public class CategoryDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "insert into category values(null, ?)";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩(Binding)을 한다.
+			// 바인딩(Binding)을 한다.
 			pstmt.setString(1, vo.getName());
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -62,11 +62,11 @@ public class CategoryDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "select no, name from category";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 
-			//4. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				int no = rs.getInt(1);
@@ -112,15 +112,15 @@ public class CategoryDao {
 		try {
 			conn = getconnection();
 
-			//3. Statement를 생성한다.
+			// Statement를 생성한다.
 			String sql = "update category set name = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩
+			// 바인딩
 			pstmt.setString(1, vo.getName());
 			pstmt.setInt(2, vo.getNo());
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -148,10 +148,10 @@ public class CategoryDao {
 		Connection conn  = null;
 		
 		try {
-			//1. JDBC Driver을 로딩한다.
+			// JDBC Driver을 로딩한다.
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			//2. SQL과 연결한다.
+			// SQL과 연결한다.
 			String url = "jdbc:mysql://127.0.0.1:3306/bookmall?charset=utf8"; // 드라이버종류, ip주소:포트번호, 데이터베이스 이름
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 			

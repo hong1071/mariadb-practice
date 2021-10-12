@@ -28,13 +28,13 @@ public class BookMall {
 			CategoryVo CateVo3 = new CategoryVo();
 			CateVo3.setName("수험서");
 			
-			
 			new CategoryDao().insert(CateVo1);
 			new CategoryDao().insert(CateVo2);
 			new CategoryDao().insert(CateVo3);
 			
 			new CategoryDao().findAll();
 		
+			
 		//2. book insert
 			
 			BookVo Bvo1 = new BookVo();
@@ -57,6 +57,7 @@ public class BookMall {
 			
 			new BookDao().findAll();
 			
+			
 		//3. member insert
 			MemberVo Mvo1 = new MemberVo();
 			Mvo1.setName("홍길동");
@@ -73,6 +74,7 @@ public class BookMall {
 			new MemberDao().insert(Mvo2); 
 			
 			new MemberDao().findAll();
+			
 			
 		//4. cart insert	
 			CartVo cartVo1 =  new CartVo();
@@ -95,6 +97,7 @@ public class BookMall {
 			
 			new CartDao().findAll();
 			
+			
 		//5. order insert	
 			OrderVo orderVo = new OrderVo();
 			orderVo.setPayment(30000);
@@ -104,6 +107,7 @@ public class BookMall {
 			new OrderDao().insert(orderVo); 
 			
 			new OrderDao().findAll();
+			
 			
 		//6. order_book insert		
 			Order_BookVo OBVo1 =  new Order_BookVo();
@@ -122,6 +126,7 @@ public class BookMall {
 			
 			new Order_BookDao().findAll();
 			
+			
 		// 데이터 업데이트
 		// 1. category update		
 			CategoryVo CateVo4 = new CategoryVo();
@@ -130,6 +135,7 @@ public class BookMall {
 			new CategoryDao().update(CateVo4);
 			
 			new CategoryDao().findAll();
+			
 			
 		// 2. member update	
 			MemberVo Mvo3 = new MemberVo();
@@ -158,10 +164,12 @@ public class BookMall {
 			
 			new CartDao().findAll();
 			
+			
 		// 4. member delete
 			new MemberDao().delete(1);
 			
 			new MemberDao().findAll();
+			
 			
 		// 5. book delete
 			new BookDao().delete(1);

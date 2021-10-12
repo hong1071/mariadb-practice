@@ -21,16 +21,16 @@ public class CartDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "insert into cart values(?, ?, ?)";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩(Binding)을 한다.
+			// 바인딩(Binding)을 한다.
 			pstmt.setInt(1, vo.getBookNo());
 			pstmt.setInt(2, vo.getMemberNo());
 			pstmt.setInt(3, vo.getAmount());
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -64,13 +64,11 @@ public class CartDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "select book_no, member_no, amount from cart";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩(Binding)을 한다.
-			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				int bookNo = rs.getInt(1);
@@ -118,14 +116,14 @@ public class CartDao {
 		try {
 			conn = getconnection();
 			
-			//3. Statement를 생성한다.
+			// Statement를 생성한다.
 			String sql = "delete from cart where member_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. binding
+			// binding
 			pstmt.setInt(1, memberNo);
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -154,10 +152,10 @@ public class CartDao {
 		Connection conn  = null;
 		
 		try {
-			//1. JDBC Driver을 로딩한다.
+			// JDBC Driver을 로딩한다.
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			//2. SQL과 연결한다.
+			// SQL과 연결한다.
 			String url = "jdbc:mysql://127.0.0.1:3306/bookmall?charset=utf8"; // 드라이버종류, ip주소:포트번호, 데이터베이스 이름
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 			

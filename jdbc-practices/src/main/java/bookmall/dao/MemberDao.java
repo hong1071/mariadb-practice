@@ -22,17 +22,17 @@ public class MemberDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "insert into member values(null, ?, ?, ?, ?)";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩(Binding)을 한다.
+			// 바인딩(Binding)을 한다.
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
 			pstmt.setString(4, vo.getPhoneNo());
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -66,11 +66,11 @@ public class MemberDao {
 		try {
 			conn = getconnection();
 			
-			//3. SQL 구문을 준비한다.
+			// SQL 구문을 준비한다.
 			String sql = "select no, name, email, password, phone_no from member";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				int no = rs.getInt(1);
@@ -122,14 +122,14 @@ public class MemberDao {
 		try {
 			conn = getconnection();
 			
-			//3. Statement를 생성한다.
+			// Statement를 생성한다.
 			String sql = "delete from member where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. binding
+			// binding
 			pstmt.setInt(1, no);
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -162,7 +162,7 @@ public class MemberDao {
 		try {
 			conn = getconnection();
 
-			//3. Statement를 생성한다.
+			// Statement를 생성한다.
 			String sql = "update member " + 
 					"set email = ifnull(?, email) " + 
 					"	, password = ifnull(?, password) " + 
@@ -170,17 +170,13 @@ public class MemberDao {
 					"where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			//4. 바인딩
-			System.out.println(vo.getEmail());
-			System.out.println(vo.getPassword());
-			System.out.println(vo.getPhoneNo());
-			System.out.println(vo.getNo());
+			// 바인딩
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
 			pstmt.setString(3, vo.getPhoneNo());
 			pstmt.setInt(4, vo.getNo());
 			
-			//5. SQL 구문을 실행한다.
+			// SQL 구문을 실행한다.
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -208,10 +204,10 @@ public class MemberDao {
 		Connection conn  = null;
 		
 		try {
-			//1. JDBC Driver을 로딩한다.
+			// JDBC Driver을 로딩한다.
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			//2. SQL과 연결한다.
+			// SQL과 연결한다.
 			String url = "jdbc:mysql://127.0.0.1:3306/bookmall?charset=utf8"; // 드라이버종류, ip주소:포트번호, 데이터베이스 이름
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 			
